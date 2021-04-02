@@ -1,0 +1,25 @@
+* {
+  font-size: 16px;
+}
+
+.default-layout {
+  display: grid;
+  grid-template-rows: 80px auto 3rem;
+  grid-template-areas: "header" "main" "footer";
+}
+
+header {
+  grid-area: header;
+}
+
+main {
+  grid-area: main;
+  min-height: 88vh;
+}
+
+footer {
+  grid-area: footer;
+  padding: 3rem;
+  background-color: rgba(17, 17, 17, 0.692);
+  color: #fff;
+}
