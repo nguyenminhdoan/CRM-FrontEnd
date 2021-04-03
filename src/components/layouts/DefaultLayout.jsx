@@ -9,7 +9,7 @@ function DefaultLayout({ children }) {
         <Header />
       </header>
       <main className="main">
-        <h1>{children}</h1>
+        <>{children}</>
       </main>
       <footer className="footer">
         <Footer />
