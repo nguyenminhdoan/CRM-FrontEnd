@@ -13,7 +13,7 @@ function AddTicketForm(props) {
   };
   return (
     <Jumbotron className=" mt-3" style={styleForm}>
-      <h1 className="text-center text-info ">ADD NEW FORM </h1>
+      <h1 className="text-center text-info ">ADD NEW TICKET </h1>
       <hr />
       <Form onSubmit={handleOnsubmit}>
         <Form.Group as={Row}>

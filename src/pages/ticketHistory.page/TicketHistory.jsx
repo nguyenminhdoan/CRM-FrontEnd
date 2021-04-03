@@ -4,14 +4,23 @@ import BreadscrumbPage from "../../components/BreadscrumbPage";
 import data from "../../assets/data/data.json";
 import MessageHistory from "../../components/MessageHistory";
 import TextAreaHistory from "../../components/TextAreaHistory";
+import { useParams } from "react-router-dom";
 
 function TicketHistory() {
   // fake data until get data from API
-  const ticket = data[0];
+  // const ticket = data[0];
+
+  const { tId } = useParams();
 
   const [repMessage, setRepMessage] = useState("");
+  const [ticket, setTicket] = useState("");
 
-  useEffect(() => {}, [repMessage]);
+  useEffect(() => {
+    data.filter((ticket) => {
+      return ticket.id === tId ? setTicket(ticket) : "";
+      
+    });
+  }, [tId, repMessage]);
 
   const handleOnChange = (e) => {
     setRepMessage(e.target.value);
@@ -30,7 +39,8 @@ function TicketHistory() {
       </Row>
 
       <Row>
-        <Col className="font-weight-bolder text-secondary">
+        <Col className="font-weight-bolder text-secondary mt-4">
+          {tId}
           <div className="subject">Subject: {ticket.subject}</div>
           <div className="date">Ticket Open: {ticket.addedAt}</div>
           <div className="status">Status: {ticket.status}</div>

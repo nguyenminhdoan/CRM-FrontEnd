@@ -3,6 +3,7 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import BreadscrumbPage from "../../components/BreadscrumbPage";
 import TicketTable from "../../components/TicketTable";
 import dataTicket from "../../assets/data/data.json";
+import { Link } from "react-router-dom";
 function Dashboard() {
   const styleBtn = {
     fontSize: `2rem`,
@@ -19,7 +20,9 @@ function Dashboard() {
       </Row>
       <Row>
         <Col className="text-center mt-5 mb-2">
-          <Button style={styleBtn}>Add New Ticket</Button>
+          <Link to="/add-ticket">
+            <Button style={styleBtn}>Add New Ticket</Button>
+          </Link>
         </Col>
       </Row>
       <Row>

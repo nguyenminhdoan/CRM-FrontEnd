@@ -7,7 +7,7 @@ function MessageHistory(props) {
     <div>
       {ticketHistory
         ? ticketHistory.map((ticket, i) => (
-            <div key={i} className="message-history mt-3">
+            <div key={i} className="message-history mt-3 mb-4">
               <div className="send font-weight-bolder text-secondary">
                 <div className="sender">{ticket.messageBy}</div>
                 <div className="date">{ticket.date}</div>
