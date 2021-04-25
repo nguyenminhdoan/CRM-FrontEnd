@@ -1,7 +1,16 @@
 import React from "react";
 import { Form, Row, Col } from "react-bootstrap";
-function SearchForm(props) {
-  const { handleOnChange, str } = props;
+import { useDispatch } from "react-redux";
+import { filterSearchTicket } from "../pages/ticketList.page/ticketAction";
+
+function SearchForm() {
+  const dispatch = useDispatch();
+  
+  const handleOnChange = (e) => {
+    const { value } = e.target;
+    dispatch(filterSearchTicket(value));
+    // console.log(name, value);
+  };
   return (
     <div>
       <Form>
@@ -14,7 +23,6 @@ function SearchForm(props) {
               name="searchStr"
               placeholder="Search..."
               onChange={handleOnChange}
-              value={str}
             />
           </Col>
         </Form.Group>
