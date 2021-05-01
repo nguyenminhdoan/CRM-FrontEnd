@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import BreadscrumbPage from "../../components/BreadscrumbPage";
-import TicketTable from "../../components/TicketTable";
+import BreadscrumbPage from "../../components/breadScrum/BreadscrumbPage";
+import TicketTable from "../../components/ticketTable/TicketTable";
 import dataTicket from "../../assets/data/data.json";
 import { Link } from "react-router-dom";
 function Dashboard() {

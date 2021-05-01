@@ -7,7 +7,6 @@ function TicketTable() {
   const { searchTicketList, isLoading, error } = useSelector(
     (state) => state.tickets
   );
-  // const { dataTicket } = props;
 
   if (isLoading) return <h3>Loading...</h3>;
   if (error) return <h3>{error}</h3>;

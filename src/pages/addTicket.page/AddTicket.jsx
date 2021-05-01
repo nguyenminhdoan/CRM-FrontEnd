@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import BreadcrumbPage from "../../components/BreadscrumbPage";
-import AddTicketForm from "../../components/AddTicketForm";
+import BreadcrumbPage from "../../components/breadScrum/BreadscrumbPage";
+import AddTicketForm from "../../components/addTicketForm/AddTicketForm";
 
 function AddTicket() {
   const [formData, setFormData] = useState({

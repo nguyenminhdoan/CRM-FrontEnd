@@ -6,6 +6,7 @@ import {
 } from "./ticketsSlice";
 
 import getAllTicket from "../../api/ticketAPI";
+
 export const fetchAllTicket = () => async (dispatch) => {
   dispatch(fetchTicketLoading());
   try {
@@ -13,6 +14,8 @@ export const fetchAllTicket = () => async (dispatch) => {
     const result = await getAllTicket();
     // console.log(result);
     dispatch(fetchTicketSuccess(result.data.result));
+
+    dispatch(filterSearchTicket());
   } catch (error) {
     dispatch(fetchTicketFail(error.message));
   }

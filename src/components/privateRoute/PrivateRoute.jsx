@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import DefaultLayout from "./layouts/DefaultLayout";
+import DefaultLayout from "../layouts/DefaultLayout";
 
 function PrivateRoute(props) {
   const { children, ...rest } = props;

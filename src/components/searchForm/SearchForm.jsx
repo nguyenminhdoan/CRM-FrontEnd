@@ -1,11 +1,11 @@
 import React from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { filterSearchTicket } from "../pages/ticketList.page/ticketAction";
+import { filterSearchTicket } from "../../pages/ticketList.page/ticketAction";
 
 function SearchForm() {
   const dispatch = useDispatch();
-  
+
   const handleOnChange = (e) => {
     const { value } = e.target;
     dispatch(filterSearchTicket(value));

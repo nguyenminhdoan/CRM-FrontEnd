@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import BreadscrumbPage from "../../components/BreadscrumbPage";
+import BreadscrumbPage from "../../components/breadScrum/BreadscrumbPage";
 import data from "../../assets/data/data.json";
-import MessageHistory from "../../components/MessageHistory";
-import TextAreaHistory from "../../components/TextAreaHistory";
+import MessageHistory from "../../components/messageHistory/MessageHistory";
+import TextAreaHistory from "../../components/texAreaHistory/TextAreaHistory";
 import { useParams } from "react-router-dom";
 
 function TicketHistory() {

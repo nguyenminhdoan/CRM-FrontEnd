@@ -1,5 +1,5 @@
 import React from "react";
-import "./style/styleMsgHistory.css";
+import "../style/styleMsgHistory.css";
 function MessageHistory(props) {
   const { ticketHistory } = props;
 
