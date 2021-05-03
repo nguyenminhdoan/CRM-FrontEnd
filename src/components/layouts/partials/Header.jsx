@@ -6,6 +6,7 @@ import { LinkContainer } from "react-router-bootstrap";
 function Header() {
   const history = useHistory();
   const logOut = () => {
+    sessionStorage.removeItem('accessJWT');
     history.push("/");
   };
   return (

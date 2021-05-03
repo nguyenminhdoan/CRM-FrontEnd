@@ -11,8 +11,9 @@ import {
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { loginPending, loginSuccess, loginFail } from "./loginSlice";
-import userLogin from "../../api/userLoginAPI";
+import {userLogin} from "../../api/userLoginAPI";
 import { useHistory } from "react-router";
+import { getUserProfile } from "../../pages/dashboard.page/userAction";
 // LoginForm.propTypes = {
 //   handleOnchange: PropTypes.func.isRequired,
 //   handleOnsubmit: PropTypes.func.isRequired,
@@ -56,14 +57,16 @@ function LoginForm(props) {
         return dispatch(loginFail(isAuth.message));
       }
       dispatch(loginSuccess());
+      dispatch(getUserProfile());
       history.push("/dashboard");
     } catch (error) {
+      console.log(error);
       dispatch(loginFail());
     }
-    console.log("email:" + email, "passwod:" + password);
+    // console.log("email:" + email, "passwod:" + password);
 
-    setEmail("");
-    setPassword("");
+    // setEmail("");
+    // setPassword("");
   };
 
   return (
