@@ -3,10 +3,15 @@ import { Nav, Navbar } from "react-bootstrap";
 import logo from "../../../assets/img/logo.png";
 import { useHistory } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
+import { userLogout } from "../../../api/userLoginAPI";
+
 function Header() {
   const history = useHistory();
   const logOut = () => {
-    sessionStorage.removeItem('accessJWT');
+    sessionStorage.removeItem("accessJWT");
+    localStorage.removeItem("crmSite");
+    userLogout();
+
     history.push("/");
   };
   return (
@@ -26,7 +31,7 @@ function Header() {
           <LinkContainer to="/tickets">
             <Nav.Link>Tickets</Nav.Link>
           </LinkContainer>
-          <Nav.Link onClick = {logOut}>Log Out</Nav.Link>
+          <Nav.Link onClick={logOut}>Log Out</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

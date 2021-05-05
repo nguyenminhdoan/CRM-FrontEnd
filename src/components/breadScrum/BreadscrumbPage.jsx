@@ -6,6 +6,7 @@ import Link from "@material-ui/core/Link";
 import HomeIcon from "@material-ui/icons/Home";
 // import WhatshotIcon from "@material-ui/icons/Whatshot";
 import GrainIcon from "@material-ui/icons/Grain";
+import { LinkContainer } from "react-router-bootstrap";
 
 function BreadscrumbPage(props) {
   const { page } = props;
@@ -20,22 +21,15 @@ function BreadscrumbPage(props) {
     },
   }));
 
-  function handleClick(event) {
-    event.preventDefault();
-    console.info("You clicked a breadcrumb.");
-  }
   const classes = useStyles();
   return (
     <Breadcrumbs aria-label="breadcrumb">
-      <Link
-        color="inherit"
-        href="/"
-        onClick={handleClick}
-        className={classes.link}
-      >
-        <HomeIcon className={classes.icon} />
-        Home
-      </Link>
+      <LinkContainer to="/" style={{ cursor: "pointer" }}>
+        <Link color="inherit" className={classes.link}>
+          <HomeIcon className={classes.icon} />
+          Home
+        </Link>
+      </LinkContainer>
 
       <Typography color="textPrimary" className={classes.link}>
         <GrainIcon className={classes.icon} />

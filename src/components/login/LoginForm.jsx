@@ -1,32 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
+  Alert,
+  Button,
+  Col,
   Container,
   Form,
   Row,
-  Col,
-  Button,
   Spinner,
-  Alert,
 } from "react-bootstrap";
-import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
-import { loginPending, loginSuccess, loginFail } from "./loginSlice";
-import {userLogin} from "../../api/userLoginAPI";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
+import { userLogin } from "../../api/userLoginAPI";
 import { getUserProfile } from "../../pages/dashboard.page/userAction";
-// LoginForm.propTypes = {
-//   handleOnchange: PropTypes.func.isRequired,
-//   handleOnsubmit: PropTypes.func.isRequired,
-//   handleFormSwitcher: PropTypes.func.isRequired,
-//   email: PropTypes.string.isRequired,
-//   password: PropTypes.string.isRequired,
-// };
+import { loginFail, loginPending, loginSuccess } from "./loginSlice";
 
 function LoginForm(props) {
   const { handleFormSwitcher } = props;
   const dispatch = useDispatch();
   const history = useHistory();
   const { isLoading, isAuth, error } = useSelector((state) => state.login);
+
+  useEffect(() => {
+    sessionStorage.getItem("accessJWT") && history.push("/dashboard");
+  }, [history, isAuth]);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -44,7 +40,7 @@ function LoginForm(props) {
 
   const handleOnsubmit = async (e) => {
     e.preventDefault();
-
+    setPassword("");
     if (!email || !password) {
       alert("please fill in the form");
     }
@@ -63,10 +59,6 @@ function LoginForm(props) {
       console.log(error);
       dispatch(loginFail());
     }
-    // console.log("email:" + email, "passwod:" + password);
-
-    // setEmail("");
-    // setPassword("");
   };
 
   return (
