@@ -47,9 +47,8 @@ function LoginForm(props) {
 
     dispatch(loginPending());
     try {
-      const isAuth = await userLogin({ email, password });
-      // console.log(isAuth);
-      if (isAuth.status === "error") {
+      const isAuth = await userLogin({ email: email, password: password });
+      if (isAuth.status === "failed") {
         return dispatch(loginFail(isAuth.message));
       }
       dispatch(loginSuccess());

@@ -17,8 +17,11 @@ function Header() {
   return (
     <Navbar collapseOnSelect bg="info" variant="dark" expand="md">
       <Navbar.Brand>
-        <img src={logo} alt="logo" width="100px" />
+        <a href="/">
+          <img src={logo} alt="logo" width="100px" />
+        </a>
       </Navbar.Brand>
+
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">

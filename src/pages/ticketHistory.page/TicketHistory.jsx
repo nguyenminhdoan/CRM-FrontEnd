@@ -1,35 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Spinner, Alert } from "react-bootstrap";
 import BreadscrumbPage from "../../components/breadScrum/BreadscrumbPage";
-import data from "../../assets/data/data.json";
 import MessageHistory from "../../components/messageHistory/MessageHistory";
 import TextAreaHistory from "../../components/texAreaHistory/TextAreaHistory";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchSingleTicket } from "../../pages/ticketList.page/ticketAction";
 
 function TicketHistory() {
-  // fake data until get data from API
-  // const ticket = data[0];
-
+  const { isLoading, error, selectedTicket } = useSelector(
+    (state) => state.tickets
+  );
   const { tId } = useParams();
+  const dispatch = useDispatch();
 
   const [repMessage, setRepMessage] = useState("");
   const [ticket, setTicket] = useState("");
 
   useEffect(() => {
-    data.filter((ticket) => {
-      return ticket.id === tId ? setTicket(ticket) : "";
-      
-    });
-  }, [tId, repMessage]);
+    dispatch(fetchSingleTicket(tId));
+  }, [tId, repMessage, dispatch]);
 
-  const handleOnChange = (e) => {
-    setRepMessage(e.target.value);
-  };
-
-  const handleOnSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form Submitted");
-  };
   return (
     <Container>
       <Row>
@@ -39,11 +30,22 @@ function TicketHistory() {
       </Row>
 
       <Row>
+        <Col>
+          {isLoading && <Spinner variant="primary" animation="border" />}
+          {error && <Alert variant="danger">{error} </Alert>}
+        </Col>
+      </Row>
+
+      <Row>
         <Col className="font-weight-bolder text-secondary mt-4">
           {tId}
-          <div className="subject">Subject: {ticket.subject}</div>
-          <div className="date">Ticket Open: {ticket.addedAt}</div>
-          <div className="status">Status: {ticket.status}</div>
+          <div className="subject">Subject: {selectedTicket.subject}</div>
+          <div className="date">
+            Ticket Open:{" "}
+            {selectedTicket.openAt &&
+              new Date(selectedTicket.openAt).toLocaleString()}
+          </div>
+          <div className="status">Status: {selectedTicket.status}</div>
         </Col>
 
         <Col className="text-right">
@@ -53,16 +55,13 @@ function TicketHistory() {
 
       <Row className="mt-4">
         <Col>
-          <MessageHistory ticketHistory={ticket.history} />
+          <MessageHistory ticketHistory={selectedTicket.conversation} />
         </Col>
       </Row>
       <hr />
       <Row className="mt-4">
         <Col>
-          <TextAreaHistory
-            handleOnChange={handleOnChange}
-            handleOnSubmit={handleOnSubmit}
-          />
+          <TextAreaHistory />
         </Col>
       </Row>
     </Container>

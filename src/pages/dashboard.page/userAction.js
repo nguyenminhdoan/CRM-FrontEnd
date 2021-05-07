@@ -1,5 +1,8 @@
 import { getUserPending, getUserSuccess, getUserFail } from "./userSlice";
 import { fetUserProfile } from "../../api/userLoginAPI";
+
+
+
 export const getUserProfile = () => async (dispatch) => {
   try {
     dispatch(getUserPending());

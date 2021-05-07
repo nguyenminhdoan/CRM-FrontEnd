@@ -18,19 +18,19 @@ function App() {
             <Entry />
           </Route>
 
-          <PrivateRoute path="/dashboard">
+          <PrivateRoute exact path="/dashboard">
             <Dashboard />
           </PrivateRoute>
 
-          <PrivateRoute path="/add-ticket">
+          <PrivateRoute exact path="/add-ticket">
             <AddTicket />
           </PrivateRoute>
 
-          <PrivateRoute path="/tickets">
+          <PrivateRoute exact path="/tickets">
             <TicketList />
           </PrivateRoute>
 
-          <PrivateRoute path="/ticket/:tId">
+          <PrivateRoute exact path="/ticket/:tId">
             <TicketHistory />
           </PrivateRoute>
         </Switch>

@@ -5,6 +5,8 @@ const initialState = {
   isLoading: false,
   error: "",
   searchTicketList: [],
+  selectedTicket: {},
+  msgStatusReply: "",
 };
 
 // CREATE ACTION CREATOR
@@ -20,6 +22,34 @@ const ticketListSlice = createSlice({
       state.tickets = action.payload;
     },
     fetchTicketFail: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
+    // FETCH single ticket
+    fetchSingleTicketLoading: (state) => {
+      state.isLoading = true;
+    },
+    fetchSingleTicketSuccess: (state, action) => {
+      state.isLoading = false;
+      state.selectedTicket = action.payload;
+      state.error = "";
+    },
+    fetchSingleTicketFail: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
+    //  SINGLE TICKET REPLY
+    replyTicketLoading: (state) => {
+      state.isLoading = true;
+    },
+    replyTicketSuccess: (state, action) => {
+      state.isLoading = false;
+      state.error = "";
+      state.msgStatusReply = action.payload;
+    },
+    replyTicketFail: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
@@ -40,6 +70,13 @@ export const {
   fetchTicketLoading,
   fetchTicketSuccess,
   fetchTicketFail,
+  fetchSingleTicketLoading,
+  fetchSingleTicketSuccess,
+  fetchSingleTicketFail,
+  replyTicketLoading,
+  replyTicketSuccess,
+  replyTicketFail,
+
   searchTicket,
 } = actions;
 

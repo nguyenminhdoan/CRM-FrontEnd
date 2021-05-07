@@ -22,16 +22,18 @@ function TicketTable() {
       </thead>
       <tbody>
         {searchTicketList.length > 0 ? (
-          searchTicketList.map((ticket, i) => {
+          searchTicketList.map((ticket) => {
             return (
-              <tr key={i}>
+              <tr key={ticket._id}>
                 <td>{ticket._id}</td>
 
                 <td>
-                  <Link to={`/ticket/${ticket.id}`}>{ticket.subject}</Link>
+                  <Link to={`/ticket/${ticket._id}`}>{ticket.subject}</Link>
                 </td>
                 <td>{ticket.status}</td>
-                <td>{ticket.openAt}</td>
+                <td>
+                  {ticket.openAt && new Date(ticket.openAt).toLocaleString()}
+                </td>
               </tr>
             );
           })

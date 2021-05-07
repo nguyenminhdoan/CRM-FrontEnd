@@ -1,19 +1,53 @@
 import axios from "axios";
 
-const getAllTicket = () => {
+export const getAllTicket = () => {
   return new Promise(async (resolve, reject) => {
     try {
       const result = await axios.get("http://localhost:3001/v1/ticket", {
         headers: {
-          Authorization:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXI0QGdtYWlsLmNvbSIsImlhdCI6MTYxOTg1Mjk2MCwiZXhwIjoxNjE5ODU0NzYwfQ.13Ea3F560itLfA62PSCEyq2BUY85osfJlDZJGgjNW20",
+          Authorization: sessionStorage.getItem("accessJWT"),
         },
       });
       resolve(result);
     } catch (error) {
+      console.log(error.message);
       reject(error);
     }
   });
 };
 
-export default getAllTicket;
+export const getSingleTicket = (_id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const result = await axios.get(`http://localhost:3001/v1/ticket/${_id}`, {
+        headers: {
+          Authorization: sessionStorage.getItem("accessJWT"),
+        },
+      });
+      resolve(result);
+    } catch (error) {
+      console.log(error.message);
+      reject(error);
+    }
+  });
+};
+
+export const updateReplyTicket = (_id, msgObj) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const result = await axios.put(
+        `http://localhost:3001/v1/ticket/${_id}`,
+        msgObj,
+        {
+          headers: {
+            Authorization: sessionStorage.getItem("accessJWT"),
+          },
+        }
+      );
+      resolve(result);
+    } catch (error) {
+      console.log(error.message);
+      reject(error);
+    }
+  });
+};
