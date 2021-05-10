@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { Form, Button, Alert } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { replyOnTicket } from "../../pages/ticketList.page/ticketAction";
 
 function TextAreaHistory() {
   const { user } = useSelector((state) => state.user);
   const { selectedTicket } = useSelector((state) => state.tickets);
-  const { msgStatusReply } = useSelector((state) => state.tickets);
   const dispatch = useDispatch();
 
   const [repMessage, setRepMessage] = useState("");
@@ -27,7 +26,7 @@ function TextAreaHistory() {
 
   return (
     <div>
-      {msgStatusReply && <Alert variant="success">{msgStatusReply}</Alert>}
+     
       <Form onSubmit={handleOnSubmit}>
         <Form.Label>Reply</Form.Label>
         <Form.Text>Please type your reply here **</Form.Text>

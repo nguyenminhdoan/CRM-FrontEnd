@@ -5,34 +5,32 @@ import MessageHistory from "../../components/messageHistory/MessageHistory";
 import TextAreaHistory from "../../components/texAreaHistory/TextAreaHistory";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSingleTicket } from "../../pages/ticketList.page/ticketAction";
+import {
+  fetchSingleTicket,
+  closeTicket,
+} from "../../pages/ticketList.page/ticketAction";
 
 function TicketHistory() {
-  const { isLoading, error, selectedTicket } = useSelector(
-    (state) => state.tickets
-  );
+  const {
+    isLoading,
+    error,
+    selectedTicket,
+    replyTicketError,
+    msgStatusReply,
+  } = useSelector((state) => state.tickets);
+
   const { tId } = useParams();
   const dispatch = useDispatch();
 
-  const [repMessage, setRepMessage] = useState("");
-  const [ticket, setTicket] = useState("");
-
   useEffect(() => {
     dispatch(fetchSingleTicket(tId));
-  }, [tId, repMessage, dispatch]);
+  }, [tId, dispatch]);
 
   return (
     <Container>
       <Row>
         <Col>
           <BreadscrumbPage page={"ticket history"} />
-        </Col>
-      </Row>
-
-      <Row>
-        <Col>
-          {isLoading && <Spinner variant="primary" animation="border" />}
-          {error && <Alert variant="danger">{error} </Alert>}
         </Col>
       </Row>
 
@@ -49,7 +47,23 @@ function TicketHistory() {
         </Col>
 
         <Col className="text-right">
-          <Button variant="outline-info">Close Ticket</Button>
+          <Button
+            variant="outline-info"
+            onClick={() => dispatch(closeTicket(tId))}
+            disabled={selectedTicket.status === "closed"}
+          >
+            Close Ticket
+          </Button>
+        </Col>
+      </Row>
+
+      <Row className="mt-4">
+        <Col>
+          {isLoading && <Spinner variant="primary" animation="border" />}
+          {replyTicketError && (
+            <Alert variant="danger">{replyTicketError} </Alert>
+          )}
+          {msgStatusReply && <Alert variant="success">{msgStatusReply}</Alert>}
         </Col>
       </Row>
 

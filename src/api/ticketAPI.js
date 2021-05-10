@@ -51,3 +51,24 @@ export const updateReplyTicket = (_id, msgObj) => {
     }
   });
 };
+
+export const updateCloseTicket = (_id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const result = await axios.patch(
+        `http://localhost:3001/v1/ticket/close-ticket/${_id}`,
+        {},
+        {
+          headers: {
+            Authorization: sessionStorage.getItem("accessJWT"),
+          },
+        }
+      );
+      resolve(result);
+    } catch (error) {
+      console.log(error.message);
+      reject(error);
+    }
+  });
+};
+

@@ -9,12 +9,16 @@ import {
   replyTicketLoading,
   replyTicketSuccess,
   replyTicketFail,
+  closeTicketLoading,
+  closeTicketSuccess,
+  closeTicketFail,
 } from "./ticketsSlice";
 
 import {
   getSingleTicket,
   getAllTicket,
   updateReplyTicket,
+  updateCloseTicket,
 } from "../../api/ticketAPI";
 
 export const fetchAllTicket = () => async (dispatch) => {
@@ -59,6 +63,22 @@ export const replyOnTicket = (_id, msgObj) => async (dispatch) => {
     dispatch(fetchSingleTicket(_id));
   } catch (error) {
     dispatch(replyTicketFail(error.message));
+  }
+};
+
+export const closeTicket = (_id) => async (dispatch) => {
+  dispatch(closeTicketLoading());
+  try {
+    // fetch data from API
+    const result = await updateCloseTicket(_id);
+    console.log(result);
+    if (result.data.status === "error") {
+      return dispatch(closeTicketFail(result.data.message));
+    }
+    dispatch(closeTicketSuccess(result.data.message));
+    dispatch(fetchSingleTicket(_id));
+  } catch (error) {
+    dispatch(closeTicketFail(error.message));
   }
 };
 
