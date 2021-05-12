@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import BreadscrumbPage from "../../components/breadScrum/BreadscrumbPage";
 import TicketTable from "../../components/ticketTable/TicketTable";
-import dataTicket from "../../assets/data/data.json";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllTicket } from "../ticketList.page/ticketAction";
+
 function Dashboard() {
   const styleBtn = {
     fontSize: `2rem`,
@@ -11,6 +13,18 @@ function Dashboard() {
     backgroundColor: `#0065ff`,
     boxShadow: `#0000007a 0px 0px 10px`,
   };
+
+  const { tickets } = useSelector((state) => state.tickets);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!tickets.length) {
+      dispatch(fetchAllTicket());
+    }
+  }, [dispatch, tickets]);
+
+  const pendingTickets = tickets.filter((ticket) => ticket.status !== "closed");
+  const totalTickets = tickets.length;
   return (
     <Container>
       <Row>
@@ -27,8 +41,8 @@ function Dashboard() {
       </Row>
       <Row>
         <Col className="text-center mt-5 mb-2">
-          <div>Total Tickets: 50</div>
-          <div>Pending Tickets: 50</div>
+          <div>Total Tickets: {totalTickets}</div>
+          <div>Pending Tickets: {pendingTickets.length}</div>
         </Col>
       </Row>
       <Row>
@@ -38,7 +52,7 @@ function Dashboard() {
 
       <Row>
         <Col className="recent-ticket">
-          <TicketTable dataTicket={dataTicket} />
+          <TicketTable />
         </Col>
       </Row>
     </Container>

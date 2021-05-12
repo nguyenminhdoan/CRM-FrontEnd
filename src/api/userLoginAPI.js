@@ -10,7 +10,7 @@ export const userLogin = (formData) => {
     try {
       const result = await axios.post(loginURL, formData);
       resolve(result.data);
-      //   console.log(result);
+      // console.log(result);
       if (result.data.status === "success") {
         sessionStorage.setItem("accessJWT", result.data.accessJWT);
         localStorage.setItem(

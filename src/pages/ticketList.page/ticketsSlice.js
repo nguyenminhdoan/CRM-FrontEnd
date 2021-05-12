@@ -69,6 +69,13 @@ const ticketListSlice = createSlice({
       state.error = action.payload;
     },
 
+    refreshMsg: (state) => {
+      state.isLoading = false;
+      state.error = "";
+      state.msgStatusReply = "";
+      state.replyTicketError = "";
+    },
+
     searchTicket: (state, action) => {
       state.searchTicketList = state.tickets.filter((ticket) => {
         if (!action.payload) return ticket;
@@ -94,6 +101,7 @@ export const {
   closeTicketLoading,
   closeTicketSuccess,
   closeTicketFail,
+  refreshMsg,
 
   searchTicket,
 } = actions;

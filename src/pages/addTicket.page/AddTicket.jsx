@@ -1,32 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import BreadcrumbPage from "../../components/breadScrum/BreadscrumbPage";
 import AddTicketForm from "../../components/addTicketForm/AddTicketForm";
 
 function AddTicket() {
-  const [formData, setFormData] = useState({
-    subject: "",
-    issueDate: "",
-    detail: "",
-  });
-
-  useEffect(() => {}, [formData]);
-
-  const handleOnchange = (e) => {
-    const { name, value } = e.target;
-
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-    // console.log(name, value);
-  };
-
-  const handleOnsubmit = (e) => {
-    e.preventDefault();
-    console.log("received value: ", formData);
-  };
-
   return (
     <Container>
       <Row>
@@ -37,11 +14,7 @@ function AddTicket() {
 
       <Row>
         <Col>
-          <AddTicketForm
-            formData={formData}
-            handleOnchange={handleOnchange}
-            handleOnsubmit={handleOnsubmit}
-          />
+          <AddTicketForm />
         </Col>
       </Row>
     </Container>

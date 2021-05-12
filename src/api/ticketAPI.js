@@ -72,3 +72,22 @@ export const updateCloseTicket = (_id) => {
   });
 };
 
+export const addNewTicket = (formData) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const result = await axios.post(
+        `http://localhost:3001/v1/ticket`,
+        formData,
+        {
+          headers: {
+            Authorization: sessionStorage.getItem("accessJWT"),
+          },
+        }
+      );
+      resolve(result);
+    } catch (error) {
+      console.log(error.message);
+      reject(error);
+    }
+  });
+};

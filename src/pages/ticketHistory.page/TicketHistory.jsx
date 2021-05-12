@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Container, Row, Col, Button, Spinner, Alert } from "react-bootstrap";
 import BreadscrumbPage from "../../components/breadScrum/BreadscrumbPage";
 import MessageHistory from "../../components/messageHistory/MessageHistory";
@@ -10,20 +10,20 @@ import {
   closeTicket,
 } from "../../pages/ticketList.page/ticketAction";
 
+import { refreshMsg } from "../ticketList.page/ticketsSlice";
+
 function TicketHistory() {
-  const {
-    isLoading,
-    error,
-    selectedTicket,
-    replyTicketError,
-    msgStatusReply,
-  } = useSelector((state) => state.tickets);
+  const { isLoading, selectedTicket, replyTicketError, msgStatusReply } =
+    useSelector((state) => state.tickets);
 
   const { tId } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchSingleTicket(tId));
+    return () => {
+      (replyTicketError || msgStatusReply) && dispatch(refreshMsg());
+    };
   }, [tId, dispatch]);
 
   return (

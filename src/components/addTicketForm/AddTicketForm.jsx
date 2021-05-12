@@ -1,9 +1,66 @@
-import React from "react";
-import { Jumbotron, Form, Button, Row, Col } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import {
+  Jumbotron,
+  Form,
+  Button,
+  Row,
+  Col,
+  Spinner,
+  Alert,
+} from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 
-function AddTicketForm(props) {
-  const { handleOnchange, handleOnsubmit, formData } = props;
-  console.log(formData);
+import { addNewTicketAction } from "./addTicketAction";
+
+import { refreshMsg } from "./addTicketSlice";
+
+function AddTicketForm() {
+  const initialFormData = {
+    subject: "",
+    issueDate: "",
+    message: "",
+  };
+
+  // const initialFormError = {
+  //   subject: false,
+  //   issueDate: false,
+  //   message: false,
+  // };
+
+  const [formData, setFormData] = useState(initialFormData);
+  // const [formDataError, setFormDataError] = useState(initialFormError);
+
+  const dispatch = useDispatch();
+
+  const { isLoading, error, msgSuccess } = useSelector(
+    (state) => state.addNewTicket
+  );
+  const {
+    user: { name },
+  } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    return () => {
+      msgSuccess && dispatch(refreshMsg());
+    };
+  }, [dispatch, formData]);
+
+  const handleOnchange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+    // console.log(name, value);
+  };
+
+  const handleOnsubmit = (e) => {
+    e.preventDefault();
+    console.log(name);
+    dispatch(addNewTicketAction({ ...formData, sender: name }));
+    setFormData(initialFormData);
+  };
 
   const styleForm = {
     maxWidth: "550px",
@@ -15,6 +72,12 @@ function AddTicketForm(props) {
     <Jumbotron className=" mt-3" style={styleForm}>
       <h1 className="text-center text-info ">ADD NEW TICKET </h1>
       <hr />
+      <div>
+        {error && <Alert variant="danger">{error}</Alert>}
+        {msgSuccess && <Alert variant="primary">{msgSuccess}</Alert>}
+        {isLoading && <Spinner variant="primary" animation="border" />}
+      </div>
+
       <Form onSubmit={handleOnsubmit}>
         <Form.Group as={Row}>
           <Form.Label column sm={3}>
@@ -41,7 +104,7 @@ function AddTicketForm(props) {
             <Form.Control
               type="date"
               name="issueDate"
-              value={formData.isseDate}
+              value={formData.issueDate}
               required
               onChange={handleOnchange}
             ></Form.Control>
@@ -49,12 +112,12 @@ function AddTicketForm(props) {
         </Form.Group>
 
         <Form.Group>
-          <Form.Label>Details</Form.Label>
+          <Form.Label>message</Form.Label>
           <Form.Control
             rows="5"
             as="textarea"
-            name="detail"
-            value={formData.details}
+            name="message"
+            value={formData.message}
             required
             onChange={handleOnchange}
           ></Form.Control>

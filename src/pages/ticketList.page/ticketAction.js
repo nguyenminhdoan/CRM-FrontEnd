@@ -55,7 +55,7 @@ export const replyOnTicket = (_id, msgObj) => async (dispatch) => {
   try {
     // fetch data from API
     const result = await updateReplyTicket(_id, msgObj);
-    console.log(result);
+    console.log(result.data.status);
     if (result.data.status === "error") {
       return dispatch(replyTicketFail(result.data.message));
     }
