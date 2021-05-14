@@ -104,6 +104,11 @@ function LoginForm(props) {
           Forgot Password
         </a>
       </Col>
+
+      <Col>
+        Are you new here? {}
+        <a href="/signup">Sign up for free!</a>
+      </Col>
     </Container>
   );
 }

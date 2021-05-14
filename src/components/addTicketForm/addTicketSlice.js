@@ -23,7 +23,6 @@ const newTicketSlice = createSlice({
     refreshMsg: (state) => {
       state.isLoading = false;
       state.msgSuccess = "";
-      state.error = "error";
     },
   },
 });

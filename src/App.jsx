@@ -4,6 +4,7 @@ import AddTicket from "./pages/addTicket.page/AddTicket";
 import Dashboard from "./pages/dashboard.page/Dashboard";
 import TicketHistory from "./pages/ticketHistory.page/TicketHistory";
 import TicketList from "./pages/ticketList.page/TicketList";
+import SingUp from "./pages/signUp.page/SignUp";
 
 // ROUTER
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -16,6 +17,10 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Entry />
+          </Route>
+
+          <Route exact path="/signup">
+            <SingUp />
           </Route>
 
           <PrivateRoute exact path="/dashboard">
