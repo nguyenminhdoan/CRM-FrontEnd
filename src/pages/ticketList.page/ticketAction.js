@@ -27,7 +27,8 @@ export const fetchAllTicket = () => async (dispatch) => {
     // fetch data from API
     const result = await getAllTicket();
     // console.log(result);
-    dispatch(fetchTicketSuccess(result.data.result));
+    result.data.result.length &&
+      dispatch(fetchTicketSuccess(result.data.result));
 
     dispatch(filterSearchTicket());
   } catch (error) {

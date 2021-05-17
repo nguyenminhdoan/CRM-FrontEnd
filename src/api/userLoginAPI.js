@@ -4,6 +4,39 @@ const loginURL = "http://localhost:3001/v1/user/login";
 const userProfileURL = "http://localhost:3001/v1/user";
 const logoutURL = "http://localhost:3001/v1/user/logout";
 const newAccessJWT = "http://localhost:3001/v1/tokens";
+const verifyURL = "http://localhost:3001/v1/user/verification";
+
+export const createSignUp = (formData) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const result = await axios.post(userProfileURL, formData);
+      resolve(result.data);
+      console.log(result);
+      if (result.data.status === "success") {
+        resolve(result.data);
+      }
+    } catch (error) {
+      reject(error.message);
+    }
+  });
+};
+export const verifyUserSignUp = (formData) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const result = await axios.patch(verifyURL, formData);
+      resolve(result.data);
+      console.log(result);
+      if (result.data.status === "success") {
+        resolve(result.data);
+      }
+    } catch (error) {
+      reject({
+        status: "error",
+        message: error.message,
+      });
+    }
+  });
+};
 
 export const userLogin = (formData) => {
   return new Promise(async (resolve, reject) => {

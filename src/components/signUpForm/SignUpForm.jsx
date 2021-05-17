@@ -1,5 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Form, Row, Col, Container, Button } from "react-bootstrap";
+import {
+  Form,
+  Row,
+  Col,
+  Container,
+  Button,
+  Spinner,
+  Alert,
+} from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { signUpNewUser } from "./signUpAction";
+
 function SignUpForm() {
   const initialState = {
     name: "",
@@ -22,6 +33,11 @@ function SignUpForm() {
 
   const [userSignUp, setUserSignUp] = useState(initialState);
   const [passwordCheck, setPasswordCheck] = useState(passwordVerify);
+
+  const dispatch = useDispatch();
+  const { isLoading, status, message } = useSelector(
+    (state) => state.signUpUser
+  );
 
   useEffect(() => {}, [userSignUp]);
 
@@ -57,7 +73,12 @@ function SignUpForm() {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    console.log(userSignUp);
+    // const { name, phone, email, company, address, password, confirmPassword } =
+    // userSignUp;
+    
+    dispatch(signUpNewUser(userSignUp));
+    // console.log(userSignUp);
+
     e.target.reset();
   };
 
@@ -69,6 +90,17 @@ function SignUpForm() {
         </Col>
       </Row>
       <hr />
+
+      <Row>
+        <Col>
+          {message && (
+            <Alert variant={status === "success" ? "success" : "danger"}>
+              {message}
+            </Alert>
+          )}
+        </Col>
+      </Row>
+
       <Row>
         <Col>
           <Form onSubmit={handleOnSubmit}>
@@ -195,6 +227,17 @@ function SignUpForm() {
             >
               Sign Up
             </Button>
+            <Row>
+              {isLoading && <Spinner variant="info" animation="border" />}
+            </Row>
+
+            <Col>
+              <Row>
+                <a className="text-info mt-3" href="/">
+                  Login Now
+                </a>
+              </Row>
+            </Col>
           </Form>
         </Col>
       </Row>

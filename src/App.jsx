@@ -5,6 +5,7 @@ import Dashboard from "./pages/dashboard.page/Dashboard";
 import TicketHistory from "./pages/ticketHistory.page/TicketHistory";
 import TicketList from "./pages/ticketList.page/TicketList";
 import SingUp from "./pages/signUp.page/SignUp";
+import Verify from "./pages/verify.page/Verify";
 
 // ROUTER
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -21,6 +22,10 @@ function App() {
 
           <Route exact path="/signup">
             <SingUp />
+          </Route>
+
+          <Route exact path="/verification/:_id/:email">
+            <Verify />
           </Route>
 
           <PrivateRoute exact path="/dashboard">
