@@ -6,6 +6,7 @@ import TicketHistory from "./pages/ticketHistory.page/TicketHistory";
 import TicketList from "./pages/ticketList.page/TicketList";
 import SingUp from "./pages/signUp.page/SignUp";
 import Verify from "./pages/verify.page/Verify";
+import ResetPasswordForm from "./pages/resetPassword.page/ResetPassword";
 
 // ROUTER
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -18,6 +19,10 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Entry />
+          </Route>
+
+          <Route exact path="/reset-password">
+            <ResetPasswordForm />
           </Route>
 
           <Route exact path="/signup">

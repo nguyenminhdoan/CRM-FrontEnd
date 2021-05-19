@@ -100,9 +100,7 @@ function LoginForm(props) {
         </Col>
       </Row>
       <Col>
-        <a onClick={() => handleFormSwitcher("reset")} href="#">
-          Forgot Password
-        </a>
+        <a href="/reset-password">Forgot Password</a>
       </Col>
 
       <Col>

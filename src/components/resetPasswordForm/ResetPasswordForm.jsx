@@ -1,21 +1,31 @@
-import React from "react";
-import { Container, Form, Row, Col, Button } from "react-bootstrap";
-import PropTypes from "prop-types";
+import React, { useState } from "react";
+import {
+  Container,
+  Form,
+  Row,
+  Col,
+  Button,
+  Alert,
+  Spinner,
+} from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { sendReqOtp } from "./resetPasswordAction";
 
-ResetPasswordForm.propTypes = {
-  handleOnchange: PropTypes.func.isRequired,
-  handleOnResetSubmit: PropTypes.func.isRequired,
-  handleFormSwitcher: PropTypes.func.isRequired,
-  email: PropTypes.string.isRequired,
-};
-
-function ResetPasswordForm(props) {
-  const {
-    handleOnchange,
-    email,
-    handleOnResetSubmit,
-    handleFormSwitcher,
-  } = props;
+function ResetPasswordForm() {
+  const dispatch = useDispatch();
+  const { isLoading, status, message } = useSelector(
+    (state) => state.resetPassword
+  );
+  const [email, setEmail] = useState("");
+  const handleOnchange = (e) => {
+    const { value } = e.target;
+    setEmail(value);
+  };
+  const handleOnResetSubmit = (e) => {
+    e.preventDefault();
+    dispatch(sendReqOtp(email));
+    setEmail("");
+  };
 
   return (
     <Container>
@@ -23,6 +33,11 @@ function ResetPasswordForm(props) {
         <Col>
           <h1 className="text-info text-center">Reset Password</h1>
           <hr />
+          {message && (
+            <Alert variant={status === "success" ? "success" : "danger"}>
+              {message}
+            </Alert>
+          )}
           <Form onSubmit={handleOnResetSubmit}>
             <Form.Group>
               <Form.Label>Email Address</Form.Label>
@@ -39,13 +54,12 @@ function ResetPasswordForm(props) {
 
             <Button type="submit">Reset Password</Button>
           </Form>
+          {isLoading && <Spinner variant="primary" animation="border" />}
           <hr />
         </Col>
       </Row>
       <Col>
-        <a onClick={() => handleFormSwitcher("login")} href="#">
-          Login Now
-        </a>
+        <a href="/">Login Now</a>
       </Col>
     </Container>
   );

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { Jumbotron } from "react-bootstrap";
-import LoginForm from "../../components/login/LoginForm";
-import "./entry.style.css";
+import ResetPasswordForm from "../../components/resetPasswordForm/ResetPasswordForm";
+import "./resetPassword.style.css";
 
-function Entry() {
+function ResetPassword() {
   return (
     <div className="entry-page bg-info">
       <Jumbotron className="form-box">
-        <LoginForm />
+        <ResetPasswordForm />
       </Jumbotron>
     </div>
   );
 }
 
-export default Entry;
+export default ResetPassword;
