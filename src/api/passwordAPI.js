@@ -16,3 +16,19 @@ export const reqPasswordOtp = (email) => {
     }
   });
 };
+
+export const updateUserPassword = (passObj) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const { data } = await axios.patch(
+        "http://localhost:3001/v1/user/reset-password",
+        passObj
+      );
+
+      console.log(data);
+      resolve(data);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};

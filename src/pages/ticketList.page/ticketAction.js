@@ -41,7 +41,7 @@ export const fetchSingleTicket = (_id) => async (dispatch) => {
   try {
     // fetch data from API
     const result = await getSingleTicket(_id);
-    // console.log(result);
+    console.log(result);
     dispatch(
       fetchSingleTicketSuccess(result.data.result && result.data.result[0])
     );
